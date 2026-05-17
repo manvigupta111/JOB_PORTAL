@@ -1,0 +1,11 @@
+.grid-background {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right, #1a1818 1px, transparent 1px),
+    linear-gradient(to bottom, #1a1818 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: -1;
+}

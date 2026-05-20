@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 //   UserButton,
 // } from "@clerk/clerk-react";
 
-import { Button } from "@clerk/clerk-react";
+import { Button } from "@/components/ui/button";
 
 const Header = () => {
   return (
@@ -14,7 +14,7 @@ const Header = () => {
       <Link to="/">
         <img src="/logo.png" className="h-20 w-40" />
       </Link>
-      <Button variant="outline"></Button>
+      <Button variant="outline">Login</Button>
       {/* <SignedOut>
         <SignInButton mode="modal">
           <button>Sign In</button>

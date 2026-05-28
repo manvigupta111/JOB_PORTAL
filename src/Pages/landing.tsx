@@ -1,5 +1,22 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import companies from "@/data/companies.json";
+import Autoplay from "embla-carousel-autoplay";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import faqs from "@/data/faq.json";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const LandingPage = () => {
   return (
@@ -33,6 +50,59 @@ const LandingPage = () => {
           </Button>
         </Link>
       </div>
+      <Carousel
+        className="w-full py-10"
+        plugins={[
+          Autoplay({
+            delay: 2000,
+          }),
+        ]}
+      >
+        <CarouselContent className="flex gap-5 sm:gap-20 items-center">
+          {companies.map(({ name, id, path }) => {
+            return (
+              <CarouselItem key={id} className="basis-1/3 lg: basis-1/6">
+                <img
+                  src={path}
+                  alt={name}
+                  className="h-9 sm:h-14 object-contain"
+                />
+              </CarouselItem>
+            );
+          })}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+      <img src="/banner.jpeg" className="w-full" />
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Card>
+          <CardHeader>
+            <CardTitle>For Job Seekers</CardTitle>
+          </CardHeader>
+          <CardContent>
+            Sesrch and apply for jobs, track applications, ans more.
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>For Employers</CardTitle>
+          </CardHeader>
+          <CardContent>
+            Post jobs, manage applications, and find the best candidates.
+          </CardContent>
+        </Card>
+      </section>
+      <Accordion type="single" collapsible defaultValue="item-1">
+        {faqs.map((faq, index) => {
+          return (
+            <AccordionItem key={index} value={`{item-${index + 1}`}>
+              <AccordionTrigger>{faq.question}</AccordionTrigger>
+              <AccordionContent>{faq.answer}</AccordionContent>
+            </AccordionItem>
+          );
+        })}
+      </Accordion>
     </main>
   );
 };

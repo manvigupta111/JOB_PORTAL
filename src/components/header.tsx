@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button";
 import { SignedOut, SignedIn, UserButton, SignIn } from "@clerk/clerk-react";
 import { BriefcaseBusiness, Heart, PenBox } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useUser } from "@clerk/clerk-react";
 
 const Header = () => {
   const [showSignIn, setShowSignIn] = useState(false);
   const [search, setSearch] = useSearchParams();
+  const { user } = useUser();
 
   useEffect(()=>{
     if(search.get("sign-in")) {
@@ -38,12 +40,12 @@ const Header = () => {
             Login
           </Button>
         </SignedOut>
-        <Link to="/post-job">
+        {user?.unsafeMetadata.role === "recruiter" && <Link to="/post-job">
           <Button variant="destructive" className="rounded-full"> 
             <PenBox size={20} className="mr-2" />
             Post a Job
           </Button>
-        </Link>
+        </Link>}
         <SignedIn>
           <UserButton appearance={{
             elements: {

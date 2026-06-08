@@ -35,13 +35,26 @@ export async function updateApplication(token, { job_id }, status) {
   const supabase = await supabaseClient(token);
 
   const { error: updateError, data: updatedData } = await supabase
-    .from("aaplications")
+    .from("applications")
     .update({ status })
     .eq("job_id", job_id)
     .select();
 
   if (updateError || updatedData.length === 0) {
     console.log("Error updating the status of the application: ", updateError);
+    return null;
+  }
+}
+
+export async function getApplications(token, { user_id }) {
+  const supabase = await supabaseClient(token);
+
+  const { error, data } = await supabase
+    .from("applications")
+    .select("*, jobs: jobs(*, company: companies(name))")
+    .eq("candidate_id", user_id);
+  if (error) {
+    console.log("Error fetching applications: ", error);
     return null;
   }
 }
